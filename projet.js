@@ -119,7 +119,7 @@ const candidats = [
 // 1. Ajouter un nouveau candidat
 function trouverCandidatParCin(cin) {
   return candidats.find(function (c) {
-    return c.cin.toUpperCase() === cin.toUpperCase();
+    return c.cin === cin;
   });
 }
 function ajouterCandidat() {
@@ -152,4 +152,18 @@ const objet = {};
   candidats.push(candidats);
   console.log("Candidat ajouté avec succès !");
 }
+
+
+
+// 2. Ajouter plusieurs candidats à la fois
+
+function ajouterPlusieursCandidats() {
+  let n = prompt("Combien de candidats voulez-vous ajouter ? ");
+for (let i = 0; i < n; i++){
+     ajouterCandidat()
+
+}
+ 
+}
+ajouterPlusieursCandidats()
 ajouterCandidat()
