@@ -1,4 +1,4 @@
-
+const prompt = require("prompt-sync")();
 const candidats = [
   {
     cin: "AB123456",
@@ -116,5 +116,40 @@ const candidats = [
 ];
 
 
+// 1. Ajouter un nouveau candidat
+function trouverCandidatParCin(cin) {
+  return candidats.find(function (c) {
+    return c.cin.toUpperCase() === cin.toUpperCase();
+  });
+}
+function ajouterCandidat() {
+  console.log("\n--- Ajout d'un nouveau candidat ---");
 
-console.log(candidats);
+  const cin = prompt("CIN: ");
+
+  if (trouverCandidatParCin(cin)) {
+    console.log("Un candidat avec ce CIN existe déjà.");
+    return;
+  }
+
+  const nom = prompt("Nom: ");
+  const prenom = prompt("Prénom: ");
+  let partiPolitique = prompt("Parti politique (laisser vide pour Indépendant): ");
+
+  if (partiPolitique === "") {
+    partiPolitique = "Indépendant";
+  }
+let age = prompt("age :");
+const objet = {};
+
+  objet.cin= cin,
+  objet.nom= nom,
+  objet.prenom= prenom,
+  objet.partiPolitique= partiPolitique,
+  objet.age= age,
+  
+
+  candidats.push(candidats);
+  console.log("Candidat ajouté avec succès !");
+}
+ajouterCandidat()
