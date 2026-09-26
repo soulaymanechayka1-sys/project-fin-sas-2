@@ -233,4 +233,38 @@ function voter() {
   candidat.electeurs.push(cinElecteur.toUpperCase());
   console.log("Vote enregistré pour " + candidat.prenom + " " + candidat.nom + ". Merci !");
 }
- voter(candidats)
+
+// 5. Modifier les informations d'un candidat
+
+function modifierCandidats(candidats) {
+  console.log("\n--- Modification d'un candidat ---");
+  const cin = prompt("CIN du candidat à modifier: ");
+  const candidat = trouverCandidatParCin(cin);
+
+  if (!candidat) {
+    console.log("Candidat introuvable.");
+    return;
+  }
+
+  console.log("1. Modifier le parti politique");
+  console.log("2. Modifier l'âge");
+  const choix = prompt("Votre choix: ");
+
+  if (choix === "1") {
+    const nouveauParti = prompt("Nouveau parti politique: ");
+    candidat.partiPolitique = nouveauParti === "" ? "Indépendant" : nouveauParti;
+    console.log("Parti politique mis à jour.");
+  } else if (choix === "2") {
+    const nouvelAge = parseInt(prompt("Nouvel âge: "));
+    if (isNaN(nouvelAge)) {
+      console.log("Âge invalide.");
+    } else {
+      candidat.age = nouvelAge;
+      console.log("Âge mis à jour.");
+    }
+  } else {
+    console.log("Choix invalide.");
+  }
+}
+
+modifierCandidats(candidats)
