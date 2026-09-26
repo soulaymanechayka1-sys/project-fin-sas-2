@@ -202,4 +202,35 @@ function AfficherListeCandidats(candidat) {
         console.log("choix invalide !");
     }
 }
-AfficherListeCandidats(candidats)
+
+// 4. Voter pour un candidat
+
+function voter() {
+  console.log("\n--- Vote ---");
+  const cinElecteur = prompt("Votre CIN: ");
+
+  let aDejaVote = false;
+  for (let i = 0; i < candidats.length; i++) {
+    if (candidats[i].electeurs.includes(cinElecteur.toUpperCase())) {
+      aDejaVote = true;
+      break;
+    }
+  }
+
+  if (aDejaVote) {
+    console.log("Vous avez déjà voté et vous n'avez pas le droit de modifier votre vote ni de voter à nouveau.");
+    return;
+  }
+
+  const cinCandidat = prompt("CIN du candidat pour qui vous votez: ");
+  const candidat = trouverCandidatParCin(cinCandidat);
+
+  if (!candidat) {
+    console.log("Aucun candidat ne correspond à ce CIN.");
+    return;
+  }
+
+  candidat.electeurs.push(cinElecteur.toUpperCase());
+  console.log("Vote enregistré pour " + candidat.prenom + " " + candidat.nom + ". Merci !");
+}
+ voter(candidats)
