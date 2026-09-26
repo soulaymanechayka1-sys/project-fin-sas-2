@@ -153,17 +153,53 @@ const objet = {};
   console.log("Candidat ajouté avec succès !");
 }
 
-
-
 // 2. Ajouter plusieurs candidats à la fois
 
 function ajouterPlusieursCandidats() {
   let n = prompt("Combien de candidats voulez-vous ajouter ? ");
 for (let i = 0; i < n; i++){
      ajouterCandidat()
+}
+}
 
+
+// 3. Afficher la liste des candidats
+
+function AfficherListeCandidats(candidat) {
+    console.log("1 --> Affichage tri par nombre de vote  ");
+    console.log("2 --> Affichage filtre par partie politique");
+    let choix = prompt('ton choix : ');
+    if (choix == 1) {
+        for (let i = 0; i < candidat.length - 1; i++) {
+            for (let j = 0; j < candidat.length - 1 - i; j++) {
+                if (candidat[j].electeurs.length < candidat[j + 1].electeurs.length) {
+                    let temp = candidat[j];
+                    candidat[j] = candidat[j + 1];
+                    candidat[j + 1] = temp;
+                }
+            }
+        }
+        for (let i = 0; i < candidat.length; i++) {
+            console.log("Identifiant : ", candidat[i].cin);
+            console.log("nom : ", candidat[i].nom);
+            console.log("prénom : ", candidat[i].prenom);
+            console.log("Parti politique : ", candidat[i].partiPolitique);
+            console.log("Age : ", candidat[i].age);
+            console.log("Nombre de votes : ", candidat[i].electeurs.length);
+            console.log("***")
+        }
+    }
+    else if (choix == 2) {
+        let partpolitique = prompt("entrez la partie politique : ")
+        for (let i = 0; i < candidat.length; i++) {
+            if (candidat[i].partiPolitique == partpolitique) {
+                console.log(candidat[i]);
+            }
+
+        }
+    }
+    else {
+        console.log("choix invalide !");
+    }
 }
- 
-}
-ajouterPlusieursCandidats()
-ajouterCandidat()
+AfficherListeCandidats(candidats)
