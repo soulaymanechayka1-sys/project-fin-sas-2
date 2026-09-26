@@ -267,4 +267,21 @@ function modifierCandidats(candidats) {
   }
 }
 
-modifierCandidats(candidats)
+// 6. Supprimer un candidat
+
+function supprimerCandidat(candidats) {
+  console.log("\n--- Suppression d'un candidat ---");
+  const cin = prompt("CIN du candidat à supprimer: ");
+
+  const index = candidats.findIndex(function (c) {
+    return c.cin.toUpperCase() === cin.toUpperCase();
+  });
+
+  if (index === -1) {
+    console.log("Candidat introuvable.");
+  } else {
+    const supprime = candidats.splice(index, 1)[0];
+    console.log("Candidat " + supprime.prenom + " " + supprime.nom + " supprimé avec succès.");
+  }
+}
+supprimerCandidat(candidats)
