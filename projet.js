@@ -304,4 +304,115 @@ function rechercherCandidats(candidats) {
     }
   }
 }
-rechercherCandidats(candidats)
+
+// 8. Statistiques de l'élection
+
+function afficherStatistiques(candidats) {
+  console.log("\n--- Statistiques de l'élection ---");
+
+  console.log("Nombre total de candidats: " + candidats.length);
+
+  let totalVotes = 0;
+  for (let i = 0; i < candidats.length; i++) {
+    totalVotes += nombreVotes(candidats[i]);
+  }
+  console.log("Nombre total de votes exprimés: " + totalVotes);
+
+  const top3 = [...candidats]
+    .sort(function (a, b) {
+      return nombreVotes(b) - nombreVotes(a);
+    })
+    .slice(0, 3);
+
+  console.log("\nTop 3 des candidats:");
+  if (top3.length === 0) {
+    console.log("Aucun candidats.");
+  } else {
+    for (let i = 0; i < top3.length; i++) {
+      const c = top3[i];
+      console.log((i + 1) + ". " + c.prenom + " " + c.nom + " (" + c.partiPolitique + ") - " + nombreVotes(c) + " vote(s)");
+    }
+  }
+
+  const parPartis = {};
+  for (let i = 0; i < candidats.length; i++) {
+    const parti = candidats[i].partiPolitique;
+    if (parPartis[parti]) {
+      parPartis[parti]++;
+    } else {
+      parPartis[parti] = 1;
+    }
+  }
+
+  console.log("\nNombre de candidats par parti politique:");
+  for (const parti in parPartis) {
+    console.log("- " + parti + ": " + parPartis[parti]);
+  }
+}
+
+
+// Menu principal
+
+function afficherMenu() {
+  console.log("\n==========================================");
+  console.log("   GESTION DES ÉLECTIONS - MAROC");
+  console.log("==========================================");
+  console.log("1. Ajouter un nouveau candidat");
+  console.log("2. Ajouter plusieurs candidats");
+  console.log("3. Afficher la liste des candidats");
+  console.log("4. Voter pour un candidat");
+  console.log("5. Modifier les informations d'un candidat");
+  console.log("6. Supprimer un candidat");
+  console.log("7. Rechercher un candidat");
+  console.log("8. Statistiques de l'élection");
+  console.log("0. Quitter");
+  console.log("==========================================");
+}
+
+function main() {
+  let quitter = false;
+
+  while (!quitter) {
+    afficherMenu();
+    const choix = prompt("Choisissez une option: ");
+
+    switch (choix) {
+      case "1":
+        ajouterCandidat();
+        break;
+      case "2":
+        ajouterPlusieursCandidats();
+        break;
+      case "3":
+      AfficherListeCandidats(candidats);
+        break;
+      case "4":
+        voter();
+        break;
+      case "5":
+      modifierCandidats(candidats);
+        break;
+      case "6":
+        supprimerCandidat();
+        break;
+      case "7":
+       rechercherCandidats(candidats) ;
+        break;
+      case "8":
+        afficherStatistiques(candidats);
+        break;
+      case "0":
+        quitter = true;
+        console.log("Au revoir !");
+        break;
+      default:
+        console.log("Option invalide, veuillez réessayer.");
+    }
+
+    if (!quitter) {
+      prompt("\nAppuyez sur Entrée pour revenir au menu principal...");
+    }
+  }
+}
+
+main();
