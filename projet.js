@@ -284,4 +284,24 @@ function supprimerCandidat(candidats) {
     console.log("Candidat " + supprime.prenom + " " + supprime.nom + " supprimé avec succès.");
   }
 }
-supprimerCandidat(candidats)
+
+// 7. Rechercher un candidat par nom
+
+function rechercherCandidats(candidats) {
+  console.log("\n--- Recherche d'un candidat ---");
+  const nom = prompt("Nom à rechercher: ");
+
+  const resultats = candidats.filter(function (c) {
+    return c.nom.toLowerCase().includes(nom.toLowerCase());
+  });
+
+  if (resultats.length === 0) {
+    console.log("Aucun candidat trouvé.");
+  } else {
+    console.log("");
+    for (let i = 0; i < resultats.length; i++) {
+    rechercherCandidats(resultats[i], i);
+    }
+  }
+}
+rechercherCandidats(candidats)
